@@ -22,6 +22,8 @@ public class Exercise_04 {
         long ll = 3l;
         System.out.println("long ll is: " + ll);
 
+        // TODO: Check this code
+
         char ch = 'a';
         System.out.println("char ch is: '" + ch + "'");
 
