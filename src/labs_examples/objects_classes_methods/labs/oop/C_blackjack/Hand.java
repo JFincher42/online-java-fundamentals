@@ -11,6 +11,11 @@ public class Hand {
         this.cards = new ArrayList<>();
     }
 
+    public void reset(){
+        this.handValue = 0;
+        this.cards.clear();
+    }
+
     public void scoreHand(){
         this.handValue = 0;
 
@@ -24,6 +29,11 @@ public class Hand {
             } else
                 this.handValue += card.cardValue + 1;
         }
+    }
+
+    public boolean busted(){
+        this.scoreHand();
+        return this.handValue > 21;
     }
 
     @Override
