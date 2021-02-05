@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Deck {
-    Card[] cards = null;
+    Card[] cards;
     ArrayList<Integer> usedCards;
 
     public Deck(){
@@ -29,8 +29,12 @@ public class Deck {
         } while (this.usedCards.contains(randomCard));
 
         player.hand.cards.add(cards[randomCard]);
+        player.hand.scoreHand();
         this.usedCards.add(randomCard);
+    }
 
+    public void reset(){
+        usedCards.clear();
     }
 
     @Override
