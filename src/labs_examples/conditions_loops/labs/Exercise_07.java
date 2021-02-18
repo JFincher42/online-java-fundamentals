@@ -14,4 +14,8 @@ package labs_examples.conditions_loops.labs;
  */
 
 public class Exercise_07 {
+
+    int [] nums = int[5];
+
+    int i = nums.length;
 }
