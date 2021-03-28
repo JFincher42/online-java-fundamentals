@@ -1,7 +1,5 @@
 package labs_examples.exception_handling.labs;
 
-import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
