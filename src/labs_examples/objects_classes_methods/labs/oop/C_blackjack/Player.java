@@ -5,14 +5,14 @@ public class Player {
     Hand hand;
     int potValue;
 
-    public Player(String name) {
+    public Player(String name, int potValue) {
         this.name = name;
-        this.potValue = 0;
+        this.potValue = potValue;
         this.hand = new Hand();
     }
 
     public boolean computerAI() {
         this.hand.scoreHand();
-        return (this.hand.handValue < 16);
+        return (this.hand.handScore < 16);
     }
 }
