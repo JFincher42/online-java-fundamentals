@@ -6,10 +6,11 @@ import java.util.ArrayList;
  * Represents a player's hand
  */
 public class Hand {
+
     // The cards currently in the hand
-    ArrayList<Card> cards;
+    private ArrayList<Card> cards;
     // The current score of the hand
-    int handScore;
+    private int handScore;
 
     /**
      * Create a new hand
@@ -17,6 +18,22 @@ public class Hand {
     public Hand(){
         this.handScore = 0;
         this.cards = new ArrayList<>();
+    }
+
+    /**
+     * Get the current ArrayList of cards
+     * @return An ArrayList of Card objects, possible empty
+     */
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    /**
+     * Gets the current score of the hand
+     * @return An integer representing the score of the hand
+     */
+    public int getHandScore() {
+        return handScore;
     }
 
     /**
@@ -46,7 +63,7 @@ public class Hand {
 
             // Is the card an ace?
             else if (card.cardRank == 0){
-                // indicate that we've seen an ace, and add a 1
+                // indicate that we've seen an ace, and add an 11
                 ace = true;
                 this.handScore += 11;
             }

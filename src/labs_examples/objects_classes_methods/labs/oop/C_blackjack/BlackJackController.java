@@ -25,11 +25,11 @@ public class BlackJackController {
             deck.reset();
 
             // Clear player hands as well
-            human.hand.reset();
-            computer.hand.reset();
+            human.getHand().reset();
+            computer.getHand().reset();
 
             // Ask for a human bet
-            int betAmount = getBetAmount(kbd, human.potValue);
+            int betAmount = getBetAmount(kbd, human.getPotValue());
 
             // Deal each player two cards
             deck.deal(human);
@@ -41,44 +41,44 @@ public class BlackJackController {
             String hit;
             do {
                 // Print the hand and value
-                System.out.println("Your hand: " + human.hand.toString());
+                System.out.println("Your hand: " + human.getHand().toString());
                 System.out.print("Another card (y/n): ");
                 hit = kbd.nextLine().trim().toLowerCase();
                 if (hit.equals("y")) deck.deal(human);
-            } while (hit.equals("y") && (!human.hand.busted()));
+            } while (hit.equals("y") && (!human.getHand().busted()));
 
             // Did the player bust?
-            if (human.hand.busted())
-                System.out.println("You busted with " + human.hand.toString());
+            if (human.getHand().busted())
+                System.out.println("You busted with " + human.getHand().toString());
 
             // Process computer play
-            while (computer.computerAI() && !computer.hand.busted()) {
+            while (computer.computerAI() && !computer.getHand().busted()) {
                 deck.deal(computer);
             }
 
             // Show results
-            System.out.println("Computer has: " + computer.hand.toString());
+            System.out.println("Computer has: " + computer.getHand().toString());
             // Did the computer bust?
-            if (computer.hand.busted())
-                System.out.println("Computer busted with " + computer.hand.toString());
+            if (computer.getHand().busted())
+                System.out.println("Computer busted with " + computer.getHand().toString());
 
             // Check for a winner
-            int winner = checkWinner(human, computer);
+            int winner = checkWinner(human.getHand(), computer.getHand());
 
             // Recalculate everyone's pot
             // If winner is positive, human's pot will go up and computer will go down
-            human.potValue += (betAmount * winner);
-            computer.potValue -= (betAmount * winner);
+            human.setPotValue(human.getPotValue() + (betAmount * winner));
+            computer.setPotValue(computer.getPotValue() - (betAmount * winner));
 
             // Show new pots
-            System.out.println("You now have $" + human.potValue + ".");
-            System.out.println("The computer now has $" + computer.potValue + ".");
+            System.out.println("You now have $" + human.getPotValue() + ".");
+            System.out.println("The computer now has $" + computer.getPotValue() + ".");
 
             // Did we lose all our money, or win all the computer's money?
-            if (human.potValue == 0) {
+            if (human.getPotValue() == 0) {
                 System.out.println("You lost it all! Time to hit the ATM!");
                 keepPlaying = false;
-            } else if (computer.potValue <= 0) {
+            } else if (computer.getPotValue() <= 0) {
                 System.out.println("You cleaned me out! I can't play anymore!");
                 keepPlaying = false;
             }
@@ -93,31 +93,32 @@ public class BlackJackController {
 
     /**
      * Check for a winner
-     * @param human - the human player
-     * @param computer - the computer player
+     * @param humanHand - the human player's hand
+     * @param computerHand - the computer player's hand
      * @return -1 if the computer won, 1 if the player won, 0 if it's a push
      */
-    private static int checkWinner(Player human, Player computer) {
+    private static int checkWinner(Hand humanHand, Hand computerHand) {
+
         // Did both players bust?
-        if (computer.hand.busted() && human.hand.busted()) {
+        if (computerHand.busted() && humanHand.busted()) {
             System.out.println("You both busted!");
             return 0;
         }
         // Did the computer bust? Player wins
-        else if (computer.hand.busted()) {
+        else if (computerHand.busted()) {
             System.out.println("Computer busted - You won!");
             return 1;
         }
         // Did the player bust? Computer wins
-        else if (human.hand.busted()) {
+        else if (humanHand.busted()) {
             System.out.println("You busted - Computer won!");
             return -1;
         }
         // No one busted, who has the better hand
-        else if (human.hand.handScore > computer.hand.handScore) {
+        else if (humanHand.getHandScore() > computerHand.getHandScore()) {
             System.out.println("You win!");
             return 1;
-        } else if (human.hand.handScore < computer.hand.handScore) {
+        } else if (humanHand.getHandScore() < computerHand.getHandScore()) {
             System.out.println("Computer wins!");
             return -1;
         } else {

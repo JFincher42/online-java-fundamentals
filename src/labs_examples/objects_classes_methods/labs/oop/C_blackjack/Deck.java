@@ -9,9 +9,9 @@ import java.util.Random;
  */
 public class Deck {
     // The current deck of cards
-    Card[] cards;
+    private Card[] cards;
     // Which cards in the deck have been used already?
-    ArrayList<Integer> usedCards;
+    private ArrayList<Integer> usedCards;
 
     /**
      * Create a new deck of cards
@@ -49,8 +49,8 @@ public class Deck {
         } while (this.usedCards.contains(randomCard));
 
         // Add this card to the player's hand and rescore the hand
-        player.hand.cards.add(cards[randomCard]);
-        player.hand.scoreHand();
+        player.getHand().getCards().add(cards[randomCard]);
+        player.getHand().scoreHand();
 
         // Mark this card as used
         this.usedCards.add(randomCard);
@@ -61,7 +61,7 @@ public class Deck {
      */
     public void reset(){
         // Simply clear the usedCards ArrayList
-        usedCards.clear();
+        this.usedCards.clear();
     }
 
     /**
@@ -71,7 +71,7 @@ public class Deck {
     @Override
     public String toString() {
         return "Deck{" +
-                "cards=" + Arrays.toString(cards) +
+                "cards=" + Arrays.toString(this.cards) +
                 '}';
     }
 }
